@@ -9,10 +9,34 @@ const $optionC = document.querySelector("#option-C");
 const $optionD = document.querySelector("#option-D");
 const $quizTimer = document.querySelector('#quiz-timer');
 const $resultText = document.querySelector('#result-text');
+const $nameUploader = document.querySelectorAll('.name-upload');
+const $nameSubmit = document.querySelector('#name-submit');
+const $nameInput = document.querySelector('#name-input');
+const $highScores = document.querySelector('#hs-table');
+
+class Player {
+    constructor(name, score) {
+        this.name = name;
+        this.score = score;
+    }
+
+}
+
+
+
 let choice = 0;
 let qIndex = 0;
 let right = 0;
 let wrong = 0;
+let playerList = [];
+let finScore = 0;
+
+$highScores.style.display = "none";
+
+$nameUploader.forEach(element => {
+    element.style.display = "none";
+
+});
 
 var question1 = {
     q: "How do you initialize a variable that won't change throughout your Javascript code.",
@@ -55,22 +79,12 @@ $optionA.addEventListener("click", function () {
         if (choice === questionsarr[qIndex].i) {
             qIndex++;
             right++;
-            $quizTimer.style.display = "none";
-            $resultText.textContent = `You had ${wrong} incorrect guesses and ${secondsLeftQuiz} seconds left.`;
-            $quizBox.forEach(element => {
-                element.style.display = "none";
-
-            });
+            endQuiz();
 
         } else {
             wrong++;
-            $resultText.textContent = 'Incorrect';
-            $quizTimer.style.display = "none";
-            $resultText.textContent = `You had ${wrong} incorrect guesses and ${secondsLeftQuiz} seconds left.`;
-            $quizBox.forEach(element => {
-                element.style.display = "none";
-
-            });
+            secondsLeftQuiz = secondsLeftQuiz = 10;
+            endQuiz();
         }
 
     } else {
@@ -98,22 +112,12 @@ $optionB.addEventListener("click", function () {
         if (choice === questionsarr[qIndex].i) {
             qIndex++;
             right++;
-            $quizTimer.style.display = "none";
-            $resultText.textContent = `You had ${wrong} incorrect guesses and ${secondsLeftQuiz} seconds left.`;
-            $quizBox.forEach(element => {
-                element.style.display = "none";
-
-            });
+            endQuiz();
 
         } else {
             wrong++;
-            $resultText.textContent = 'Incorrect';
-            $quizTimer.style.display = "none";
-            $resultText.textContent = `You had ${wrong} incorrect guesses and ${secondsLeftQuiz} seconds left.`;
-            $quizBox.forEach(element => {
-                element.style.display = "none";
-
-            });
+            secondsLeftQuiz = secondsLeftQuiz = 10;
+            endQuiz();
         }
 
     } else {
@@ -141,22 +145,12 @@ $optionC.addEventListener("click", function () {
         if (choice === questionsarr[qIndex].i) {
             qIndex++;
             right++;
-            $quizTimer.style.display = "none";
-            $resultText.textContent = `You had ${wrong} incorrect guesses and ${secondsLeftQuiz} seconds left.`;
-            $quizBox.forEach(element => {
-                element.style.display = "none";
-
-            });
+            endQuiz();
 
         } else {
             wrong++;
-            $resultText.textContent = 'Incorrect';
-            $quizTimer.style.display = "none";
-            $resultText.textContent = `You had ${wrong} incorrect guesses and ${secondsLeftQuiz} seconds left.`;
-            $quizBox.forEach(element => {
-                element.style.display = "none";
-
-            });
+            secondsLeftQuiz = secondsLeftQuiz = 10;
+            endQuiz();
         }
 
     } else {
@@ -184,22 +178,12 @@ $optionD.addEventListener("click", function () {
         if (choice === questionsarr[qIndex].i) {
             qIndex++;
             right++;
-            $quizTimer.style.display = "none";
-            $resultText.textContent = `You had ${wrong} incorrect guesses and ${secondsLeftQuiz} seconds left.`;
-            $quizBox.forEach(element => {
-                element.style.display = "none";
-
-            });
+            endQuiz();
 
         } else {
             wrong++;
-            $resultText.textContent = 'Incorrect';
-            $quizTimer.style.display = "none";
-            $resultText.textContent = `You had ${wrong} incorrect guesses and ${secondsLeftQuiz} seconds left.`;
-            $quizBox.forEach(element => {
-                element.style.display = "none";
-
-            });
+            secondsLeftQuiz = secondsLeftQuiz = 10;
+            endQuiz();
         }
 
     } else {
@@ -221,8 +205,14 @@ $optionD.addEventListener("click", function () {
 
 });
 
-function changeQuestion(questionarr) {
-}
+$nameSubmit.addEventListener("click", function () {
+
+    let logInstance = new Player($nameInput.value, finScore);
+    playerList.push(logInstance);
+    popHighScores();
+});
+
+
 
 function setTime() {
     var timerInterval = setInterval(function () {
@@ -251,40 +241,76 @@ function startQuiz(questionsarr) {
         $quizTimer.textContent = `Time left: ${secondsLeftQuiz}`;
 
         if (secondsLeftQuiz === 0) {
+            finScore = 0;
             clearInterval(timerInterval);
+            $quizTimer.style.display = "none";
+            $resultText.textContent = `Too bad.`;
             $quizBox.forEach(element => {
                 element.style.display = "none";
-
             });
-            $quizTimer.style.display = "none";
-            $resultText.textContent = 'You took too long...';
         }
     }, 1000);
-
 }
 
-//Pull from question object
-function showQuestion(question) {
 
+    // Endquiz
+    function endQuiz() {
 
+        finScore = secondsLeftQuiz;
+        $quizTimer.style.display = "none";
+        $resultText.textContent = `You had ${finScore} seconds left.`;
+        $quizBox.forEach(element => {
+            element.style.display = "none";
 
-    $quizBox[0].textContent = question.q;
-
-    for (let i = 0; i < $answersbuttons.length; i++) {
-        $answersbuttons[i].children[0].innerHTML = question.a[i];
+        });
+        $nameUploader.forEach(element => {
+            element.style.display = "inline";
+        });
     }
 
-    $quizBox.forEach(element => {
-        element.style.display = "inline";
-    });
-
-}
+    //Pull from question object
+    function showQuestion(question) {
 
 
 
+        $quizBox[0].textContent = question.q;
 
-// if (choice === question.i) {
-//     return true;
-// } else {
-//     return false;
-// }
+        for (let i = 0; i < $answersbuttons.length; i++) {
+            $answersbuttons[i].children[0].innerHTML = question.a[i];
+        }
+
+        $quizBox.forEach(element => {
+            element.style.display = "inline";
+        });
+
+    }
+
+    function popHighScores() {
+        $nameSubmit.style.display = "none";
+        $nameInput.style.display = "none";
+        console.log(playerList);
+
+        for (let index = 0; index < playerList.length; index++) {
+
+            let newRow = document.createElement("TR");
+            let newName = document.createElement("TD");
+            let newScore = document.createElement("TD");
+
+            let textName = document.createTextNode(playerList[index].name);
+            let textScore = document.createTextNode(playerList[index].score);
+
+            newName.appendChild(textName);
+            newScore.appendChild(textScore);
+
+            newRow.appendChild(newName);
+            newRow.appendChild(newScore);
+
+
+
+            $highScores.appendChild(newRow);
+            console.log(newRow);
+
+        }
+        console.log($highScores.style.display)
+        $highScores.style.display = "block";
+    }
