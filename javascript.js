@@ -13,6 +13,8 @@ const $nameUploader = document.querySelectorAll('.name-upload');
 const $nameSubmit = document.querySelector('#name-submit');
 const $nameInput = document.querySelector('#name-input');
 const $highScores = document.querySelector('#hs-table');
+const $retake = document.querySelector('.retry');
+const $retakeBtn = document.querySelector('#retake');
 
 class Player {
     constructor(name, score) {
@@ -32,6 +34,7 @@ let playerList = [];
 let finScore = 0;
 
 $highScores.style.display = "none";
+$retake.style.display = "none";
 
 $nameUploader.forEach(element => {
     element.style.display = "none";
@@ -210,6 +213,32 @@ $nameSubmit.addEventListener("click", function () {
     let logInstance = new Player($nameInput.value, finScore);
     playerList.push(logInstance);
     popHighScores();
+    $retakeBtn.textContent = "Retake the Quiz";
+    $retake.style.display = "inline";
+});
+
+
+// restart quiz
+$retake.addEventListener("click", function () {
+    secondsLeft = 5;
+    secondsLeftQuiz = 60;
+    qIndex = 0;
+    var timerInterval = setInterval(function () {
+        secondsLeft--;
+        $retakeBtn.textContent = `Quiz starts in ${secondsLeft}`;
+
+        if (secondsLeft === 0) {
+            clearInterval(timerInterval);
+
+            $highScores.style.display = "none";
+            $retake.style.display = "none";
+            $resultText.textContent = "";
+
+            startQuiz(questionsarr);
+        }
+
+    }, 1000);
+
 });
 
 
@@ -253,64 +282,62 @@ function startQuiz(questionsarr) {
 }
 
 
-    // Endquiz
-    function endQuiz() {
+// Endquiz
+function endQuiz() {
 
-        finScore = secondsLeftQuiz;
-        $quizTimer.style.display = "none";
-        $resultText.textContent = `You had ${finScore} seconds left.`;
-        $quizBox.forEach(element => {
-            element.style.display = "none";
+    finScore = secondsLeftQuiz;
+    $quizTimer.style.display = "none";
+    $resultText.textContent = `You had ${finScore} seconds left.`;
+    $quizBox.forEach(element => {
+        element.style.display = "none";
 
-        });
-        $nameUploader.forEach(element => {
-            element.style.display = "inline";
-        });
+    });
+    $nameUploader.forEach(element => {
+        element.style.display = "inline";
+    });
+}
+
+//Pull from question object
+function showQuestion(question) {
+
+
+
+    $quizBox[0].textContent = question.q;
+
+    for (let i = 0; i < $answersbuttons.length; i++) {
+        $answersbuttons[i].children[0].innerHTML = question.a[i];
     }
 
-    //Pull from question object
-    function showQuestion(question) {
+    $quizBox.forEach(element => {
+        element.style.display = "inline";
+    });
+
+}
+
+function popHighScores() {
+    $nameSubmit.style.display = "none";
+    $nameInput.style.display = "none";
+    console.log(playerList);
+
+
+    let newRow = document.createElement("TR");
+    let newName = document.createElement("TD");
+    let newScore = document.createElement("TD");
+
+    let textName = document.createTextNode(playerList[playerList.length-1].name);
+    let textScore = document.createTextNode(playerList[playerList.length-1].score);
+
+    newName.appendChild(textName);
+    newScore.appendChild(textScore);
+
+    newRow.appendChild(newName);
+    newRow.appendChild(newScore);
 
 
 
-        $quizBox[0].textContent = question.q;
+    $highScores.appendChild(newRow);
+    console.log(newRow);
 
-        for (let i = 0; i < $answersbuttons.length; i++) {
-            $answersbuttons[i].children[0].innerHTML = question.a[i];
-        }
-
-        $quizBox.forEach(element => {
-            element.style.display = "inline";
-        });
-
-    }
-
-    function popHighScores() {
-        $nameSubmit.style.display = "none";
-        $nameInput.style.display = "none";
-        console.log(playerList);
-
-        for (let index = 0; index < playerList.length; index++) {
-
-            let newRow = document.createElement("TR");
-            let newName = document.createElement("TD");
-            let newScore = document.createElement("TD");
-
-            let textName = document.createTextNode(playerList[index].name);
-            let textScore = document.createTextNode(playerList[index].score);
-
-            newName.appendChild(textName);
-            newScore.appendChild(textScore);
-
-            newRow.appendChild(newName);
-            newRow.appendChild(newScore);
-
-
-
-            $highScores.appendChild(newRow);
-            console.log(newRow);
-
-        }
-        console.log($highScores.style.display)
-        $highScores.style.display = "block";
-    }
+    console.log($highScores.style.display)
+    $highScores.style.display = "block";
+}
