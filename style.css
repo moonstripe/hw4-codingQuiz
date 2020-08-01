@@ -1,0 +1,15 @@
+.header {
+    margin: 20px;
+}
+
+.quiz-box {
+    display: none;
+}
+
+.quiz-box button{
+    margin-top: 20px;
+}
+
+li {
+    list-style-type: none;
+}
