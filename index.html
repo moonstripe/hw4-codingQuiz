@@ -6,75 +6,82 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
     <link rel="stylesheet" href="style.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <title>Coding Quiz</title>
 </head>
 
 <body>
-    
+    <nav class="navbar navbar-expand-sm navbar-light bg-light">
+        <a class="navbar-brand" href="#">Coding Quiz</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+          <div class="navbar-nav">
+            
+            <a class="nav-item nav-link" href="#" id="quiz-timer">Disabled</a>
+          </div>
+        </div>
+      </nav>
 
     <div class="container">
+
         <div class="row">
             <div class="col-lg-3"></div>
-            <div class="col-lg-6">
-                <h1 class="header">Coding Quiz</h1>
-                <h4 class="header" id="quiz-timer">Time left: </h4>
-            </div>
-            <div class="col-lg-3"></div>
-        </div>
-        <div class="row">
-            <div class="col-lg-3"></div>
-            <div class="col-lg-6">
-                <div class="coding-quiz-container">
-                    <p class="init">
-                        Get started!
-                    </p>
-                    <button class="init" id="startbtn">
-                        Quiz starts in ...
-                    </button>
-                    <p class="quiz-box" id="question">
-                        differnt
-                    </p>
-                    <ul class="quiz-box" id="answers">
-                        <li>
-                            <button id="option-A"></button>
-                        </li>
-                        <li>
-                            <button id="option-B"></button>
-                        </li>
-                        <li>
-                            <button id="option-C"></button>
-                        </li>
-                        <li>
-                            <button id="option-D"></button>
-                        </li>
-                    </ul>
-                </div>
-                <div class="result-box">
-                    <h6 id="result-text">
-                    </h6>
-                    <input type="text" class="name-upload" name="nameInput" id="name-input" placeholder="Type your Initials">
-                    <button type="submit" class="name-upload" id="name-submit">Submit</button>
-                </div>
-                <div class="highscores">
-                    <table id="hs-table">
-                        <tr>
-                            <th>Name</th>
-                            <th>Score</th>
-                        </tr>
-                    </table>
-                </div>
-                <div class="retry">
-                    <button id="retake">Retake the Quiz</button>
+            <div class="col-lg-6 container-q">
+                <div class="quiz-bg">
+                    <div class="coding-quiz-container">
+                        <p class="init">
+                            Get started!
+                        </p>
+                        <button class="init" id="startbtn">
+                            Quiz starts in ...
+                        </button>
+                        <p class="quiz-box" id="question">
+                            differnt
+                        </p>
+                        <ul class="quiz-box" id="answers">
+                            <li id="1">
+                                <button id="option-A"></button>
+                            </li>
+                            <li id="2">
+                                <button id="option-B"></button>
+                            </li>
+                            <li id="3">
+                                <button id="option-C"></button>
+                            </li>
+                            <li id="4">
+                                <button id="option-D"></button>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="result-box">
+                        <h6 id="result-text">
+                        </h6>
+                        <input type="text" class="name-upload" name="nameInput" id="name-input"
+                            placeholder="Type your Initials">
+                        <button type="submit" class="name-upload" id="name-submit">Submit</button>
+                    </div>
+                    <div class="highscores">
+                        <table class= "table" id="hs-table">
+                            <tr>
+                                <th>Name</th>
+                                <th>Score</th>
+                            </tr>
+                        </table>
+                    </div>
+                    <div class="retry">
+                        <button id="retake">Retake the Quiz</button>
+                    </div>
                 </div>
             </div>
             <div class="col-lg-3"></div>
-            
+
         </div>
 
 
 
 </body>
-
 
 <script src="javascript.js"></script>
 
