@@ -133,6 +133,7 @@ $answersbuttonsID.on("click", function (event) {
 
             } else {
                 wrong++;
+                $resultText.text('Try Again');
                 secondsLeftQuiz = secondsLeftQuiz - 10;
             }
             // other questions
