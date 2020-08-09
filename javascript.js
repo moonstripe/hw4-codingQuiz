@@ -31,7 +31,14 @@ let choice = 0;
 let qIndex = 0;
 let right = 0;
 let wrong = 0;
+
 let playerList = [];
+
+if (localStorage.getItem('playerList')) {
+    playerList = JSON.parse(localStorage.getItem('playerList'));
+}
+
+
 let finScore = 0;
 let quizEnd = false;
 
@@ -120,7 +127,12 @@ $answersbuttonsID.on("click", function (event) {
 $nameSubmit.on("click", function () {
     if ($nameInput.val()) {
         let logInstance = new Player($nameInput.val(), finScore);
+        
         playerList.push(logInstance);
+        
+
+        localStorage.setItem('playerList', JSON.stringify(playerList));
+
         popHighScores();
         $retakeBtn.text("Retake the Quiz");
         $retake.css("display", "inline");
@@ -229,24 +241,30 @@ function showQuestion(question) {
 }
 
 function popHighScores() {
+    $highScores.empty();
+    playerList = JSON.parse(localStorage.getItem('playerList'));
     $nameSubmit.css('display', 'none');
     $nameInput.css('display', 'none');
     console.log(playerList);
 
 
-    let newRow = $("<tr>");
-    let newName = $("<td>");
-    let newScore = $("<td>");
+    for (let index = 0; index < playerList.length; index++) {
+        
+        let newRow = $("<tr>");
+        let newName = $("<td>");
+        let newScore = $("<td>");
 
-    newName.text(playerList[playerList.length - 1].name);
-    newScore.text(playerList[playerList.length - 1].score);
+        newName.text(playerList[index].name);
+        newScore.text(playerList[index].score);
 
-    newRow.append(newName);
-    newRow.append(newScore);
+        newRow.append(newName);
+        newRow.append(newScore);
 
 
 
     $highScores.append(newRow);
+
+    }
 
     $highScores.css('display', 'inline');
 }
