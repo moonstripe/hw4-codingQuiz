@@ -49,35 +49,70 @@ $retake.css("display", "none");
 
 $nameUploader.css("display", "none");
 
-
 var question1 = {
+    q: "What symbols surround a string?",
+    a: ["Apostrophes", "Parentheses", "Curly Braces", "Dollar signs"],
+    i: 1,
+};
+
+var question2 = {
+    q: "What is a boolean?",
+    a: ["A value that is mathematical", "A true or false value", "What spooky rappers drink", "a set of data ordered in a list"],
+    i: 2,
+};
+
+var question3 = {
+    q: "What of the following languages are typically considered part of 'Front-End' Development?",
+    a: ["Express.js", "Node.js", "HTML/CSS", "Java"],
+    i: 3,
+};
+
+var question4 = {
+    q: "Why would you declare a variable with const instead of let?",
+    a: ["If you didn't want the value to change", "Because const initializes functions", "If you wanted to initialize a number", "Because const is es6 and let isn't"],
+    i: 1,
+};
+
+var question5 = {
+    q: "Who is the driver to the navigator?",
+    a: ["The driver compiles the code written by the navigator", "The driver writes code while the navigator helps check for errors and brainstorm solutions", "The driver writes code for the navigator to debug later", "Mortal enemies."],
+    i: 2,
+};
+
+var question6 = {
+    q: "What does 'index' in the following line of code mean? \n for (let index = 0; index < array.length; index++)",
+    a: ["An integer that increases in value every time the subsequent code is run", "The location of local data", "The numerical position of an item in 'array'", "First and Third are true."],
+    i: 4,
+};
+
+var question7 = {
     q: "How do you initialize a variable that won't change throughout your Javascript code.",
     a: ["var vName = ___;", "let vName = ___;", "set vName = ___;", "const vName = ___;"],
     i: 4,
 };
 
-var question2 = {
+var question8 = {
     q: "What will the console read once the following code runs? var math = 7 + '2'; console.log(math)",
     a: ["Uncaught Type Error: math is not a number", "72", "9", "Uncaught Type Error: math is 72"],
     i: 2,
 };
 
-var question3 = {
+var question9 = {
     q: "Which gets hoisted first?",
     a: ["Variable definitions", "Function definitions", "Variable declarations", "Function declarations"],
     i: 1,
 };
 
-var question4 = {
+var question10 = {
     q: "What can a for loop do that a foreach map cannot?",
     a: ["Occupy more lines of code", "Loop through an array and change the elements directly.", "Cycle through another array as the index increases.", "They are functionally the same."],
     i: 3,
 };
 
-var questionsarr = [question1, question2, question3, question4];
+var questionsarr = [question1, question2, question3, question4, question5, question6, question7, question8, question9, question10];
 
 var secondsLeft = 5;
-var secondsLeftQuiz = 15;
+var secondsLeftQuiz = 30;
 
 
 
@@ -177,7 +212,7 @@ function startQuiz() {
     $retake.css("display", "none");
 
     $nameUploader.css("display", "none");
-    secondsLeftQuiz = 15;
+    secondsLeftQuiz = 30;
     $quizTimer.text(`Time left: ${secondsLeftQuiz}`);
     $quizTimer.css("display", "inline");
     showQuestion(questionsarr[0]);

@@ -6,10 +6,15 @@
 
 .quiz-box button{
     margin-top: 20px;
+
 }
 
 li {
     list-style-type: none;
+}
+
+#result-text{
+    margin-top: 20px;
 }
 
 .container-q {
